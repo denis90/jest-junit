@@ -94,10 +94,10 @@ module.exports = function (report, appDirectory, options) {
       if (tc.status === 'failed') {
         tc.failureMessages.forEach((failure) => {
           // jest-image-snapshot path
-          const imageSnapshot = failure.match(/See diff for details: (\S+)/);
+          const imageSnapshot = stripAnsi(failure).match(/See diff for details: (\S+)/);
           if (Array.isArray(imageSnapshot) && imageSnapshot.length === 2) {
             testCase.testcase.push({
-              'system-out': '[[ATTACHMENT|' + imageSnapshot[2] + ']]'
+              'system-out': '[[ATTACHMENT|' + imageSnapshot[1] + ']]'
             });
           }
           testCase.testcase.push({
